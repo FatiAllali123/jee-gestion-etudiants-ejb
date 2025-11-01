@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
+             version="3.2">
+
+
+        <persistence-unit name="mycnx" transaction-type="JTA">
+            <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+            <!--
+           DataSource JNDI : Référence à la connexion MySQL dans WildFly
+           Ce nom DOIT correspondre au JNDI name configuré dans WildFly
+            -->
+            <jta-data-source>java:jboss/datasources/getudiantsDS</jta-data-source>
+
+
+            <!-- classes -->
+
+            <class>ma.fstt.ejb_module.entities.Etudiant</class>
+            <class>ma.fstt.ejb_module.entities.Module</class>
+            <class>ma.fstt.ejb_module.entities.Suivie</class>
+
+
+
+            <properties>
+                <!-- Hibernate as JPA provider -->
+                <property name="hibernate.archive.autodetection" value="class"/>
+
+                <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:4306/getudiants?useSSL=false&amp;serverTimezone=UTC"/>
+                <property name="jakarta.persistence.jdbc.user" value="root"/>
+                <property name="jakarta.persistence.jdbc.password" value=""/>
+
+                <!-- Enable DDL Generation -->
+                <property name="hibernate.hbm2ddl.auto" value="update"/>  <!-- Options: create, create-drop, update, validate -->
+
+                <!-- Optional: Show SQL statements in console (for debugging) -->
+                <property name="hibernate.show_sql" value="true"/>
+                <property name="hibernate.format_sql" value="true"/>
+
+                <!-- Optional: Log generated DDL to console/file -->
+                <property name="hibernate.hbm2ddl.import_files" value="import.sql"/>  <!-- If you have custom init scripts -->
+            </properties>
+
+        </persistence-unit>
+ </persistence>
+
+
